@@ -29,8 +29,14 @@ void setup() {
   if (context.enableDepth() == false)
   {
     println("Can't open the depthMap, maybe the camera is not connected!"); 
-    exit();
-    return;
+    
+    if ( context.openFileRecording("C:\\Users\\tal\\GitHub\\FinalTexperience\\fin\\1.oni") == false)
+    {
+      println("can't find recording !!!!");
+      exit();
+      return;
+    }
+
   }
 
   // enable skeleton generation for all joints
