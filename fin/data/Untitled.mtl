@@ -1,0 +1,15 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+<<<<<<< HEAD:data/floor.mtl
+newmtl Color_I09
+Ka 0.000000 0.000000 0.000000
+Kd 0.478431 0.478431 0.800000
+=======
+newmtl Color_I06
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.800000
+>>>>>>> parent of 8d98ecb... test:data/Untitled.mtl
+Ks 0.330000 0.330000 0.330000
+

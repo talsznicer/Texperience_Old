@@ -30,7 +30,7 @@ void setup() {
   {
     println("Can't open the depthMap, maybe the camera is not connected!"); 
     
-    if ( context.openFileRecording("C:\\Users\\tal\\GitHub\\FinalTexperience\\fin\\1.oni") == false)
+    if ( context.openFileRecording("C:\\Users\\tal\\GitHub\\FinalTexperience\\fin\\data\\1.oni") == false)
     {
       println("can't find recording !!!!");
       exit();
