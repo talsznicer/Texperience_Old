@@ -1,11 +1,11 @@
-//tal sznicer 
+// T-expirience 2013
 
 import SimpleOpenNI.*;
 import processing.opengl.*;
 import saito.objloader.*;
 
 
-OBJModel test;
+OBJModel test, moon, tree, door ;
 
 
 SimpleOpenNI  context;
@@ -14,7 +14,7 @@ PVector head = new PVector();
 
 
 //  Sensor position relative to screen in mm
-PVector sensorPosition = new PVector(0, 300, -1500);
+PVector sensorPosition = new PVector(0, 500, 200);
 PVector defaultCameraPosition = new PVector(0, 0, 3000);
 PVector currentCameraPosition = defaultCameraPosition;
 
@@ -50,6 +50,26 @@ void setup() {
   test = new OBJModel(this, "test.obj", "relative", POLYGON);
   test.enableDebug();
   test.scale(1, -1, -1);
+
+  // moon
+  moon = new OBJModel(this, "moon.obj", "relative", POLYGON);
+  moon.enableDebug();
+  moon.scale(1, -1, -1);
+
+  // tree
+  tree = new OBJModel(this, "tree.obj", "relative",  TRIANGLE_STRIP);
+  tree.enableDebug();
+  tree.scale(100);
+  tree.scale(1, -1, -1);
+  
+  
+ // door
+ door = new OBJModel(this, "door.obj", "relative", POLYGON);
+ door.enableDebug();
+ door.scale(1, -1, -1);
+ 
+ 
+ 
 }
 
 void draw() {
@@ -96,14 +116,48 @@ void draw() {
   directionalLight(255, 255, 255, 0, 1, 0);
   directionalLight(255, 255, 255, 0, 0, 1);
   directionalLight(255, 255, 255, 1, 0, 0);
-  perspective(PI / 3, float(width)/float(height), 1, 1000000);
+  perspective(PI / 3, float(width)/float(height), 1, 100000);
 
   // test
   pushMatrix();
   translate(0, 0, 0);
-  test.draw();  
+  //test.draw();  
   popMatrix();
 
+  //floor
+  pushMatrix();
+  pushStyle();  
+  translate(-5000, 0, -5000);
+  rotateX(radians(90));
+  rect(0, 0, 10000, 10000);
+  popStyle();
+  popMatrix();
+
+  // moon
+  pushMatrix();
+  pushStyle(); 
+  translate(0, 2000, -60000);
+  moon.draw();  
+  popStyle();
+  popMatrix();
+
+  // tree
+  pushMatrix();
+  pushStyle(); 
+  translate(0, 300, 5000);
+  tree.draw();  
+  popStyle();
+  popMatrix();
+
+
+ // door
+ pushMatrix();
+ pushStyle(); 
+ translate(0, 0, 1000);
+ door.draw();  
+ popStyle();
+ popMatrix();
+ 
   //XYZ AXIS
   pushMatrix();
   pushStyle();  
@@ -122,21 +176,27 @@ void draw() {
   popMatrix();
 
   //sphere
-  int N = 7;
-  for (int i = 0; i < N; i++)
-    for (int j = 0; j < N; j++)
-      for (int k = 0; k < N; k++)
-      {
-        pushMatrix();
-        fill(255 * i / N, 255 * j / N, 255 * k / N);
-        translate((i-N/2)*500, (j-N/2)*500, (k-N/2)*500);
-        box(50);
-        popMatrix();
-      }
+//   int N = 7;
+//   for (int i = 0; i < N; i++)
+//   for (int j = 0; j < N; j++)
+//   for (int k = 0; k < N; k++)
+//   {
+//   pushMatrix();
+//   fill(255 * i / N, 255 * j / N, 255 * k / N);
+//   translate((i-N/2)*500, (j-N/2)*500, (k-N/2)*500);
+//   box(50);
+//   popMatrix();
+//   }
+//   
+//   pushMatrix();  
+//   sphere(10);
+//   popMatrix();
+  
 
-  pushMatrix();  
-  sphere(10);
-  popMatrix();
+
+
+
+
 
   endCamera();
 }
