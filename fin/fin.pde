@@ -1,3 +1,5 @@
+//tal sznicer 
+
 import SimpleOpenNI.*;
 import processing.opengl.*;
 import saito.objloader.*;
