@@ -4,7 +4,9 @@ import SimpleOpenNI.*;
 import processing.opengl.*;
 import saito.objloader.*;
 
+
 OBJModel test;
+
 
 SimpleOpenNI  context;
 boolean       autoCalib=true;
@@ -13,35 +15,34 @@ PVector head = new PVector();
 
 //  Sensor position relative to screen in mm
 PVector sensorPosition = new PVector(0, 300, -1500);
-
 PVector defaultCameraPosition = new PVector(0, 0, 3000);
-
 PVector currentCameraPosition = defaultCameraPosition;
-
 
 void setup() {
 
-  background(0);
-  size(displayWidth, displayHeight, P3D);
+  // FULL SCREEN
+  //size(displayWidth, displayHeight, P3D);
+
+  //Optimize Size
+  size(1860, 1020, P3D);
+
   context = new SimpleOpenNI(this);
 
   // enable depthMap generation 
   if (context.enableDepth() == false)
   {
     println("Can't open the depthMap, maybe the camera is not connected!"); 
-    
+
     if ( context.openFileRecording("C:\\Users\\tal\\GitHub\\FinalTexperience\\fin\\data\\1.oni") == false)
     {
       println("can't find recording !!!!");
       exit();
       return;
     }
-
   }
 
   // enable skeleton generation for all joints
   context.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
-
 
   smooth();
 
@@ -67,24 +68,24 @@ void draw() {
       context.getJointPositionSkeleton(userList[i], SimpleOpenNI.SKEL_HEAD, head);
       head.x = -head.x;
       head.y = -head.y;
-
       println(head);
     }
   }
 
-beginCamera();
-PVector target = new PVector();
-if (numTreckedUsers > 0)
-{
-target = head;
-}else {
-  target = defaultCameraPosition ;
-}
-
-currentCameraPosition.lerp(target,0.1);
+  beginCamera();
+  PVector target = new PVector();
+  if (numTreckedUsers > 0)
+  {
+    target = head;
+  }
+  else 
+  {
+    target = defaultCameraPosition ;
+  }
+  currentCameraPosition.lerp(target, 0.1);
 
   camera(
-  //  ((float(mouseX) / width) - 0.5) * 2000,   ((float(mouseY) / height) - 0.5) * 2000,   2000.0, //mouseY / height * 2000, //move camera
+  //((float(mouseX) / width) - 0.5) * 2000,   ((float(mouseY) / height) - 0.5) * 2000,   2000.0, //mouseY / height * 2000, //move camera
   currentCameraPosition.x + sensorPosition.x, currentCameraPosition.y + sensorPosition.y, currentCameraPosition.z + sensorPosition.z, 
   0, 0, 0, //
   0, 1.0, 0);
@@ -97,8 +98,14 @@ currentCameraPosition.lerp(target,0.1);
   directionalLight(255, 255, 255, 1, 0, 0);
   perspective(PI / 3, float(width)/float(height), 1, 1000000);
 
+  // test
+  pushMatrix();
+  translate(0, 0, 0);
+  test.draw();  
+  popMatrix();
+
   //XYZ AXIS
-pushMatrix();
+  pushMatrix();
   pushStyle();  
   int A = 10000;
   strokeWeight(1);
@@ -112,20 +119,10 @@ pushMatrix();
   stroke(0, 0, 255);
   line(0, 0, 0, 0, 0, A);
   popStyle();
-popMatrix();
-
-  // test
-  pushMatrix();
-  translate(0, 0, 0);
-  test.draw();
-//  fill(255,0,0);
-//  sphere(300);
   popMatrix();
 
   //sphere
-
   int N = 7;
-
   for (int i = 0; i < N; i++)
     for (int j = 0; j < N; j++)
       for (int k = 0; k < N; k++)
@@ -133,15 +130,14 @@ popMatrix();
         pushMatrix();
         fill(255 * i / N, 255 * j / N, 255 * k / N);
         translate((i-N/2)*500, (j-N/2)*500, (k-N/2)*500);
-          box(50);
+        box(50);
         popMatrix();
       }
 
-  pushMatrix();
-  //translate(head.x, head.y, head.z);  
+  pushMatrix();  
   sphere(10);
   popMatrix();
-  
+
   endCamera();
 }
 
