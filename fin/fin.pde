@@ -5,7 +5,7 @@ import processing.opengl.*;
 import saito.objloader.*;
 
 
-OBJModel test, moon, tree, door ;
+OBJModel test, moon, tree, door,xoxo ;
 
 
 SimpleOpenNI  context;
@@ -14,7 +14,7 @@ PVector head = new PVector();
 
 
 //  Sensor position relative to screen in mm
-PVector sensorPosition = new PVector(0, 500, 200);
+PVector sensorPosition = new PVector(0, 500, -1000);
 PVector defaultCameraPosition = new PVector(0, 0, 3000);
 PVector currentCameraPosition = defaultCameraPosition;
 
@@ -57,19 +57,22 @@ void setup() {
   moon.scale(1, -1, -1);
 
   // tree
-  tree = new OBJModel(this, "tree.obj", "relative",  TRIANGLE_STRIP);
+  tree = new OBJModel(this, "tree.obj", "relative", TRIANGLE_STRIP);
   tree.enableDebug();
   tree.scale(100);
   tree.scale(1, -1, -1);
+
+
+  // door
+  door = new OBJModel(this, "door.obj", "relative", POLYGON);
+  door.enableDebug();
+  door.scale(1, -1, -1);
   
-  
- // door
- door = new OBJModel(this, "door.obj", "relative", POLYGON);
- door.enableDebug();
- door.scale(1, -1, -1);
- 
- 
- 
+   // xoxo
+ xoxo = new OBJModel(this, "xoxo.obj", "relative", POLYGON);
+ xoxo.enableDebug();
+ xoxo.scale(100, -100, -100);
+
 }
 
 void draw() {
@@ -144,20 +147,42 @@ void draw() {
   // tree
   pushMatrix();
   pushStyle(); 
-  translate(0, 300, 5000);
+  translate(0, 0, 500);
   tree.draw();  
   popStyle();
   popMatrix();
+  
+  //trees
+     int N = 7;
+     //float r = random(360);
+     for (int i = 0; i < N; i++)
+     for (int k = 0; k < N; k++)
+     {
+     pushMatrix();
+     //rotateX(radians(r));
+     translate((i-N/2)*500, 0, (k-N/2)*500);
+     tree.draw();
+     popMatrix();
+     }
 
-
- // door
+  // door
+  pushMatrix();
+  pushStyle(); 
+  scale(10);
+  translate(0, 0, 1000);
+  door.draw();  
+  popStyle();
+  popMatrix();
+ 
+ // xoxo
  pushMatrix();
  pushStyle(); 
- translate(0, 0, 1000);
- door.draw();  
+ translate(0, 100, 500);
+ xoxo.draw();  
  popStyle();
  popMatrix();
  
+
   //XYZ AXIS
   pushMatrix();
   pushStyle();  
@@ -176,22 +201,22 @@ void draw() {
   popMatrix();
 
   //sphere
-//   int N = 7;
-//   for (int i = 0; i < N; i++)
-//   for (int j = 0; j < N; j++)
-//   for (int k = 0; k < N; k++)
-//   {
-//   pushMatrix();
-//   fill(255 * i / N, 255 * j / N, 255 * k / N);
-//   translate((i-N/2)*500, (j-N/2)*500, (k-N/2)*500);
-//   box(50);
-//   popMatrix();
-//   }
-//   
-//   pushMatrix();  
-//   sphere(10);
-//   popMatrix();
-  
+  //   int N = 7;
+  //   for (int i = 0; i < N; i++)
+  //   for (int j = 0; j < N; j++)
+  //   for (int k = 0; k < N; k++)
+  //   {
+  //   pushMatrix();
+  //   fill(255 * i / N, 255 * j / N, 255 * k / N);
+  //   translate((i-N/2)*500, (j-N/2)*500, (k-N/2)*500);
+  //   box(50);
+  //   popMatrix();
+  //   }
+  //   
+  //   pushMatrix();  
+  //   sphere(10);
+  //   popMatrix();
+
 
 
 

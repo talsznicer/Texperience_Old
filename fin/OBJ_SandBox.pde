@@ -2,19 +2,19 @@
 
  
  
- // door
- door = new OBJModel(this, "door.obj", "relative", POLYGON);
- door.enableDebug();
- door.scale(1, -1, -1);
+ // xoxo
+ xoxo = new OBJModel(this, "xoxo.obj", "relative", POLYGON);
+ xoxo.enableDebug();
+ xoxo.scale(1, -1, -1);
  
  
  
  
- // door
+ // xoxo
  pushMatrix();
  pushStyle(); 
  translate(0, 0, 0);
- door.draw();  
+ xoxo.draw();  
  popStyle();
  popMatrix();
  
